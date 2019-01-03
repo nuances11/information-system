@@ -1,0 +1,47 @@
+#addbtn {
+    margin: 15px;
+}
+th.vertical-th{
+    width: auto;
+    height: auto;
+    /* background-color: yellow; */
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Safari 3-8 */
+    transform: rotate(-90deg);
+}
+
+.table .thead-grey th {
+    color: black!important;
+    background-color: #d3d3d3!important;
+    border-color: black!important;
+}
+.sf-header {
+    color: black!important;
+    background-color: #d3d3d3!important;
+    border: 2px solid black;
+    margin-bottom: 2.1px!important;
+}
+.sf-box{
+    border: 1px solid black;
+}
+.school-form p, .table td{
+    font-size: 80%!important;
+    line-height: 0px!important;
+}
+.school-form p, .table th{
+    font-size: 80%!important;
+    line-height: 12px!important;
+}
+.school-form table.table-bordered{
+    border:2px solid black;
+    /* margin-top:20px; */
+  }
+.school-form table.table-bordered > thead > tr > th{
+    border:1px solid black;
+}
+.school-form table.table-bordered > tbody > tr > td{
+    border:1px solid black;
+}
+.school-form table.table-bordered > tfoot > tr > td{
+    border:1px solid black;
+}

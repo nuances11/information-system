@@ -11,8 +11,8 @@ $route['registrar/section-id/student-id/card'] = 'registrar/studcard';
 /*
  * User 
  */
-$route['admin/ajax/(.*)'] = 'faculty/ajax/$1';
-$route['admin/action/(.*)'] = 'faculty/do_action/$1';
+$route['faculty/ajax/(.*)'] = 'faculty/ajax/$1';
+$route['faculty/action/(.*)'] = 'faculty/do_action/$1';
 
 $route['faculty/list/sy/(:num)'] = 'faculty/student_list_sy/$1';
 $route['faculty/list/sy/(:num)/section/(:num)/students'] = 'faculty/student_list_section/$1/$2';
@@ -48,6 +48,6 @@ $route['logout'] = 'login/logout';
 $route['login/login_check'] = 'login/login_check';
 $route['login'] = 'login';
 
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

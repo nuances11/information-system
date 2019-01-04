@@ -38,7 +38,7 @@
 	<!-- AdditionalCSS -->
 	<?php if(isset($additional_css)) : ?>
 	<?php foreach($additional_css as $css): ?>
-	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/<?php echo base_url() . $css ;?>">
+	<link rel="stylesheet" href="<?php echo base_url() . $css ;?>">
 	<?php endforeach; ?>
 	<?php endif; ?>
 

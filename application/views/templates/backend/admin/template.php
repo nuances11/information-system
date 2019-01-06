@@ -81,18 +81,16 @@
 			<nav class="side-navbar">
 				<!-- Sidebar Header-->
 				<div class="sidebar-header d-flex align-items-center">
-					<div class="avatar"><img src="<?php echo base_url(); ?>assets/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
 					<div class="title">
-						<h1 class="h4">Mark Stephen</h1>
-						<p>Web Designer</p>
+						<h1 class="h4"><?php echo $this->session->userdata('fullname') ?></h1>
+						<p>Admin</p>
 					</div>
 				</div>
 				<!-- Sidebar Navidation Menus--><span class="heading">Main</span>
 				<ul class="list-unstyled">
-					<li class="active"><a href="<?php echo base_url(); ?>admin"> <i class="icon-home"></i>Home </a></li>
 					<li><a href="<?php echo base_url(); ?>admin/user"> <i class="icon-grid"></i>Users</a></li>
 					<li><a href="<?php echo base_url(); ?>admin/subject"> <i class="fa fa-bar-chart"></i>Subjects</a></li>
-					<li><a href="<?php echo base_url(); ?>admin/forms"> <i class="icon-padnote"></i>Forms</a></li>
+					<!-- <li><a href="<?php echo base_url(); ?>admin/forms"> <i class="icon-padnote"></i>Forms</a></li> -->
 					<li><a href="<?php echo base_url(); ?>admin/assign"> <i class="icon-interface-windows"></i>Assign</a></li>
 					<li><a href="<?php echo base_url(); ?>admin/section"> <i class="icon-interface-windows"></i>Section</a></li>
 					<li><a href="<?php echo base_url(); ?>admin/school-year"> <i class="icon-interface-windows"></i>School Year</a></li>

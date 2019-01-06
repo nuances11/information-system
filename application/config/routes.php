@@ -14,11 +14,16 @@ $route['registrar/section-id/student-id/card'] = 'registrar/studcard';
 $route['faculty/ajax/(.*)'] = 'faculty/ajax/$1';
 $route['faculty/action/(.*)'] = 'faculty/do_action/$1';
 
+$route['faculty/subjects'] = 'faculty/subjects';
+$route['faculty/subjects/sy/(:num)'] = 'faculty/subject_section_list/$1';
+$route['faculty/subject/sy/(:num)/section/(:num)/subject/(:num)'] = 'faculty/subject_student_list/$1/$2/$3';
+$route['faculty/subject/sy/(:num)/section/(:num)/encode/(:num)/student/(:num)'] = 'faculty/encode_subject_grade/$1/$2/$3/$4';
 $route['faculty/list/sy/(:num)'] = 'faculty/student_list_sy/$1';
 $route['faculty/list/sy/(:num)/section/(:num)/students'] = 'faculty/student_list_section/$1/$2';
 $route['faculty/list/sy/(:num)/section/(:num)/subjects'] = 'faculty/section_subjects/$1/$2';
 $route['faculty/student/list'] = 'faculty/student_list';
-$route['faculty/student/eform'] = 'faculty/eform';
+$route['faculty/student/eform/sy/(:num)/section/(:num)'] = 'faculty/eform/$1/$2';
+$route['faculty/student/eform/(:num)'] = 'faculty/edit_eform/$1/';
 $route['faculty/class'] = 'faculty/clreport';
 $route['faculty/class-subjects'] = 'faculty/scsubjlist';
 $route['faculty/section-name/subject'] = 'faculty/scsubj';

@@ -69,7 +69,30 @@ class Sy_Model extends CI_Model
         $this->db->select('fd.*, sy.id as school_year_id, sy.year as school_year, s.section_name, s.id as section_id')
                 ->from('faculty_designation as fd')
                 ->join('school_year as sy', 'sy.id = fd.school_year_id')
-                ->join('section as s', 's.id = fd.section_id');
+                ->join('section as s', 's.id = fd.section_id')
+                ->where('fd.user_id', $id)
+                ->where('fd.school_year_id', $sy);
+        return $this->db->get();
+    }
+
+    public function getSubjectSectionList($sy, $id)
+    {
+        $this->db->select("sd.*, sub.subject_name,sub.grade_level,s.section_name, CONCAT(u.first_name,' ',u.last_name) AS faculty_name,")
+            ->from('subject_designation as sd')
+            ->join('subjects as sub', 'sub.id = sd.subject_id')
+            ->join('section as s', 's.id = sd.section_id')
+            ->join('users as u', 'u.id = sd.user_id')
+            ->where('sd.user_id', $id)
+            ->where('sd.school_year_id', $sy);
+        return $this->db->get();       
+    }
+
+    public function getSubjectStudentList($sy, $section)
+    {
+        $this->db->select('ed.*,')
+                ->from('enroll_data as ed')
+                ->where('ed.section_id', $section)
+                ->where('ed.school_year_id', $sy);
         return $this->db->get();
     }
 
@@ -98,12 +121,151 @@ class Sy_Model extends CI_Model
         return $this->db->get();
     }
 
+    public function getCurGrade($section)
+    {
+        $this->db->select('*')
+                ->from('section')
+                ->where('id', $section);
+        return $this->db->get()->row();
+    }
+
+    public function getStudent($year, $section)
+    {
+        $this->db->where('school_year_id', $year)
+                    ->where('section_id', $section);
+        return $this->db->get('enroll_data');
+    }
+
+    public function withdrawStudent($id)
+    {
+        $data = array(
+            'is_drop' => 0,
+            'is_withdraw' => 1
+        );
+        $this->db->where('id', $id);
+        return $this->db->update('enroll_data',$data);
+    }
+
+    public function deleteStudent($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('enroll_data');
+    }
+
+    public function getEnrollDetails($id)
+    {
+        $this->db->select('ed.*, sy.year as school_year')
+            ->from('enroll_data as ed')
+            ->join('school_year as sy', 'ed.school_year_id = sy.id')
+            ->where('ed.id', $id);
+        return $this->db->get()->row();
+    }
+
+    public function getStudentGrade($data)
+    {
+        $this->db->select('*')
+                ->where('school_year_id', $data['school_year'])
+                ->where('section_id', $data['section'])
+                ->where('enroll_id', $data['student'])
+                ->where('subject_id', $data['subject']);
+        return $this->db->get('encoded_grade')->row();
+    }
+
+    public function saveEncodeGrade()
+    {
+        $data = $this->input->post();
+        $this->db->select('*')
+                ->where('school_year_id', $data['school_year_id'])
+                ->where('section_id', $data['section_id'])
+                ->where('enroll_id', $data['enroll_id'])
+                ->where('subject_id', $data['subject_id']);
+        $encode = $this->db->get('encoded_grade')->row();
+
+        if ($encode) {
+            $update = array(
+                'quarter_one' => $data['quarter_one'],
+                'quarter_two' => $data['quarter_two'],
+                'quarter_three' => $data['quarter_three'],
+                'quarter_four' => $data['quarter_four'],
+            );
+
+            $this->db->where('school_year_id', $data['school_year_id'])
+            ->where('section_id', $data['section_id'])
+            ->where('enroll_id', $data['enroll_id'])
+            ->where('subject_id', $data['subject_id']);
+            return $this->db->update('encoded_grade', $update);
+        }else{
+            $grade = array(
+                'school_year_id' => $data['school_year_id'],
+                'section_id' => $data['section_id'],
+                'enroll_id' => $data['enroll_id'],
+                'subject_id' => $data['subject_id'],
+                'quarter_one' => $data['quarter_one'],
+                'quarter_two' => $data['quarter_two'],
+                'quarter_three' => $data['quarter_three'],
+                'quarter_four' => $data['quarter_four'],
+            );
+
+            return $this->db->insert('encoded_grade', $grade);
+        }
+    }
+
+    public function activateStudent($id)
+    {
+        $data = array(
+            'is_drop' => 0,
+            'is_withdraw' => 0
+        );
+        $this->db->where('id', $id);
+        return $this->db->update('enroll_data',$data);
+    }
+
+    public function dropStudent($id)
+    {
+        $data = array(
+            'is_drop' => 1,
+            'is_withdraw' => 0
+        );
+        $this->db->where('id', $id);
+        return $this->db->update('enroll_data',$data);
+    }
+
+    public function saveStudentData()
+    {
+        $post = $this->input->post();
+        $raw_data = serialize($post);
+        $data = array(
+            'section_id' => $post['section_id'],
+            'school_year_id' => $post['sy'],
+            'grade_level' => $post['grade'],
+            'raw_data' => $raw_data,
+        );
+
+        return $this->db->insert('enroll_data', $data);
+    }
+
+    public function updateStudentData()
+    {
+        $post = $this->input->post();
+        $raw_data = serialize($post);
+        $data = array(
+            'section_id' => $post['section_id'],
+            'school_year_id' => $post['sy'],
+            'grade_level' => $post['grade'],
+            'raw_data' => $raw_data,
+        );
+        $this->db->where('id', $post['enroll_id']);
+        return $this->db->update('enroll_data', $data);
+    }
+
+
     public function getRemainingSubject($sy, $section)
     {
         $this->db->select('*')
                 ->from('section')
                 ->where('id', $section);
         $grade = $this->db->get()->row();
+  
 
         $this->db->select('*')
                 ->from('subject_designation')
@@ -119,8 +281,10 @@ class Sy_Model extends CI_Model
 
         $this->db->select('*')
                 ->from('subjects')
-                ->where('grade_level', $grade->grade)
-                ->where_not_in('id', $unavailableSubject);
+                ->where('grade_level', $grade->grade);
+                if (!empty($unavailableSubject)) {
+                    $this->db->where_not_in('id', $unavailableSubject);
+                }
         return $this->db->get()->result();
 
     }
@@ -137,10 +301,10 @@ class Sy_Model extends CI_Model
         return $this->db->insert('subject_designation', $data);
     }
 
-    public function get_subject_details($id)
+    public function deleteSubjectAssign($id)
     {
         $this->db->where('id', $id);
-        return $this->db->get('subject_designation')->row();
+        return $this->db->delete('subject_designation');
     }
 
 }

@@ -81,16 +81,14 @@
 			<nav class="side-navbar">
 				<!-- Sidebar Header-->
 				<div class="sidebar-header d-flex align-items-center">
-					<div class="avatar"><img src="<?php echo base_url(); ?>assets/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
 					<div class="title">
-						<h1 class="h4">Mark Stephen</h1>
-						<p>Web Designer</p>
+						<h1 class="h4"><?php echo $this->session->userdata('fullname') ?></h1>
+						<p>Faculty</p>
 					</div>
 				</div>
 				<!-- Sidebar Navidation Menus--><span class="heading">Main</span>
 				<ul class="list-unstyled">
-					<li class="active"><a href="<?php echo base_url(); ?>assets/index.html"> <i class="icon-home"></i>Home </a></li>
-					<!-- <li><a href="<?php echo base_url(); ?>faculty/student"> <i class="icon-grid"></i>Student</a></li> -->
+					<li><a href="<?php echo base_url(); ?>faculty/subjects"> <i class="icon-grid"></i>Subjects</a></li>
 					<li><a href="#studentdropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Sections</a>
 						<ul id="studentdropdownDropdown" class="collapse list-unstyled ">
 							<li><a href="<?php echo base_url(); ?>faculty/student/list">List</a></li>

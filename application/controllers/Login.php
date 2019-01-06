@@ -62,11 +62,11 @@ class Login extends CI_Controller {
 				// Add user data in session
                 $this->session->set_userdata($session_data);
                 if ($res->department == 1) {
-                    redirect('admin', 'refresh');
+                    redirect('admin/user', 'refresh');
                 }elseif($res->department == 2){
-                    redirect('faculty', 'refresh');
+                    redirect('faculty/student/list', 'refresh');
                 }elseif($res->department == 3){
-                    redirect('registrar', 'refresh');
+                    redirect('registrar/class', 'refresh');
                 }else{
                     $this->session->sess_destroy();
 		            $this->session->set_flashdata('login_error', '<div class="alert alert-danger">You have been looged out.</div>');

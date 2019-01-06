@@ -5,8 +5,11 @@
 </header>
 
 <!-- Button trigger modal -->
-<button id="addbtn" type="button" class="btn btn-primary float-right"
+<!-- <button id="addbtn" type="button" class="btn btn-primary float-right"
 	 data-toggle="modal" data-target="#addsubjectmodal">
+		Assign Subject
+</button> -->
+<button data-section="<?= $data['section'] ;?>" data-year="<?= $data['sy'] ;?>" id="addbtn" type="button" class="btn btn-primary float-right assignSubject">
 		Assign Subject
 </button>
 

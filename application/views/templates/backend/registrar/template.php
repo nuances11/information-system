@@ -7,6 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base_url" content="<?php echo BASE_URL() ;?>">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>
 		<?= $title ;?>
@@ -27,6 +28,7 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/custom.css">
 	<!-- Favicon-->
 	<!-- <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/img/favicon.ico"> -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/style.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/user.css">
@@ -34,7 +36,7 @@
 	<!-- AdditionalCSS -->
 	<?php if(isset($additional_css)) : ?>
 	<?php foreach($additional_css as $css): ?>
-	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/<?php echo base_url() . $css ;?>">
+	<link rel="stylesheet" href="<?php echo base_url() . $css ;?>">
 	<?php endforeach; ?>
 	<?php endif; ?>
 
@@ -85,13 +87,13 @@
 				<!-- Sidebar Navidation Menus--><span class="heading">Main</span>
 				<ul class="list-unstyled">
 					<li><a href="<?php echo base_url(); ?>registrar/class"> <i class="icon-grid"></i>Class Record</a></li>
-					<li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse" class="collapsed"> <i class="icon-interface-windows"></i>Forms</a>
+					<!-- <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse" class="collapsed"> <i class="icon-interface-windows"></i>Forms</a>
 						<ul id="exampledropdownDropdown" class="list-unstyled collapse" style="">
 							<li><a href="<?php echo base_url(); ?>registrar/sf10">SF10-ES Form</a></li>
 							<li><a href="<?php echo base_url(); ?>print/section-id/student-id/card'">Progress Report Card</a></li>
 							<li><a href="#">Subjects</a></li>
 						</ul>
-					</li>
+					</li> -->
 				</ul>
 			</nav>
 
@@ -115,11 +117,13 @@
 	<!-- Main File-->
 	<script src="<?php echo base_url(); ?>assets/js/front.js"></script>
 	<script src="<?php echo base_url(); ?>assets/"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
 	<!-- Additional Scripts -->
 	<?php if(isset($add_js)) : ?>
 	<?php foreach($add_js as $js): ?>
-	<script src="<?php echo base_url(); ?>assets/<?php echo base_url() . $js; ?>"></script>
+	<script src="<?php echo base_url() . $js; ?>"></script>
 	<?php endforeach; ?>
 	<?php endif; ?>
 

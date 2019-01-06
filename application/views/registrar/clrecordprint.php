@@ -1,4 +1,12 @@
 <div class="mt-3">
+<pre>
+    <?php 
+        //print_r($section); 
+        // $student = unserialize($grades->raw_data);
+        // $student_name = ucfirst($student['firstname']) . ' ' . ucfirst($student['middlename'][0]) .'. ' . ucfirst($student['lastname']);
+        // $average = ($student->quarter_one + $student->quarter_two + $student->quarter_three + $student->quarter_four) / 4.0;
+    ?>
+</pre>
     <!-- <div class="card"> -->
     <!-- <div> -->
         <!-- <div class="card-header d-flex align-items-center">
@@ -13,7 +21,7 @@
                 <h4>LITTLE ANGEL STUDY CENTER</h4>
                 <h6>OLONGAPO CITY</h6>
                 <h5>CLASS RECORD - SECONDARY</h5><br>
-                <h4 class="text-bold">SECTION NAME/GRADE LEVEL</h4><br>
+                <h4 class="text-bold"><?=$section->section_name ?>/<?=$section->grade ?></h4><br>
             </div>
 
             <div class="form-group table-responsive">
@@ -30,26 +38,32 @@
                     </thead>
                     <tbody>
                         <tr class="text-center">
+                            <?php foreach($grades as $grade): ?>
+                            <?php
+                                $student = unserialize($grade->raw_data);
+                                $student_name = ucfirst($student['firstname']) . ' ' . ucfirst($student['middlename'][0]) .'. ' . ucfirst($student['lastname']);
+                                $average = ($grade->quarter_one + $grade->quarter_two + $grade->quarter_three + $grade->quarter_four) / 4.0;
+                            ;?>
                             <td class="text-left">
-                                <a href="<?php echo base_url(); ?>registrar/section-id/student-id/card" target="_blank">
-                                    Mark Otto
-                                </a>
+                                <!-- <a href="<?php echo base_url(); ?>registrar/section-id/student-id/card" target="_blank"> -->
+                                <?= $student_name; ?>
                             </td>
                             <td>
-                                85
+                                <?= $grade->quarter_one ?>
                             </td>
                             <td>
-                                85
+                                <?= $grade->quarter_two ?>
                             </td>
                             <td>
-                                85
+                                <?= $grade->quarter_three ?>
                             </td>
                             <td>
-                                85
+                                <?= $grade->quarter_four ?>
                             </td>
                             <td>
-                                85
+                                <?= $average ?>
                             </td>
+                            <?php endforeach;?>
                         </tr>
                     </tbody>
                 </table>

@@ -11,10 +11,10 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table" id="class_record_List"  width="100%">
+                <table class="table" id="records_grade"  width="100%">
                     <thead>
                         <tr>
-                            <th>School Year</th>
+                            <th>Grade</th>
                             <th>Action</th>
                         </tr>
                     </thead>

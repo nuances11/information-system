@@ -171,6 +171,17 @@ class Sy_Model extends CI_Model
         return $this->db->get('encoded_grade')->row();
     }
 
+    public function getAllStudentsGrade($data)
+    {
+        $this->db->select('eg.*, ed.raw_data')
+        ->from('encoded_grade as eg')
+        ->join('enroll_data as ed', 'ed.id = eg.enroll_id')
+        ->where('eg.school_year_id', $data['school_year'])
+        ->where('eg.section_id', $data['section'])
+        ->where('eg.subject_id', $data['subject']);
+        return $this->db->get('encoded_grade')->result();
+    }
+
     public function saveEncodeGrade()
     {
         $data = $this->input->post();
@@ -305,6 +316,28 @@ class Sy_Model extends CI_Model
     {
         $this->db->where('id', $id);
         return $this->db->delete('subject_designation');
+    }
+
+    public function getGrades()
+    {
+        return $this->db->get('section');
+    }
+
+    public function getSubjects($grade, $section)
+    {
+        $this->db->where('grade_level', $grade);
+        return $this->db->get('subjects');
+    }
+
+    public function getAllGrades($grades, $section, $year, $subject)
+    {
+        $this->db->select('eg.*, ed.raw_data')
+                ->from('encoded_grade as eg')
+                ->join('enroll_data as ed', 'ed.id = eg.enroll_id');
+                // ->where('eg.school_year_id', $year)
+                // ->where('eg.section_id', $section)
+                // ->where('eg.subject_id', $subject);
+        return $this->db->get();
     }
 
 }

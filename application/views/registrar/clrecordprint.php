@@ -1,7 +1,7 @@
 <div class="mt-3">
 <pre>
     <?php 
-        //print_r($section); 
+        //print_r($grades); 
         // $student = unserialize($grades->raw_data);
         // $student_name = ucfirst($student['firstname']) . ' ' . ucfirst($student['middlename'][0]) .'. ' . ucfirst($student['lastname']);
         // $average = ($student->quarter_one + $student->quarter_two + $student->quarter_three + $student->quarter_four) / 4.0;
@@ -21,7 +21,7 @@
                 <h4>LITTLE ANGEL STUDY CENTER</h4>
                 <h6>OLONGAPO CITY</h6>
                 <h5>CLASS RECORD - SECONDARY</h5><br>
-                <h4 class="text-bold"><?=$section->section_name ?>/<?=$section->grade ?></h4><br>
+                <h4 class="text-bold"><?=$section->section_name ?> - Grade <?=$section->grade ?></h4><br>
             </div>
 
             <div class="form-group table-responsive">

@@ -146,7 +146,68 @@ class Admin extends CI_Controller {
             case 'add_section':
                 $this->add_section();
                 break;
+            case 'update_section':
+                $this->update_section();
+                break;
+            case 'delete_section':
+                $this->delete_section();
+                break;
         }
+    }
+
+    public function delete_section()
+    {
+        $response = array();
+        
+        $id = $this->input->post('id');
+        if (!$id) {
+
+            $response['message'] = 'Error retrieving section data';
+            $response['success'] = FALSE;
+
+        }else{
+
+            $res = $this->sy_model->deleteSection($id);
+            if ($res) {
+                $response['success'] = TRUE;
+                $response['message'] = 'Section deleted successfully';
+            }else{
+                $response['success'] = FALSE;
+                $response['message'] = 'Error deleting section';
+            }
+
+        }
+
+        echo json_encode($response);
+        exit;
+    }
+
+    public function update_section()
+    {
+        $response = array();
+
+        $this->form_validation->set_rules('grade','Grade', 'required');
+        $this->form_validation->set_rules('section_name','Section Name', 'required');
+        if ($this->form_validation->run() == FALSE) {
+
+            $response['validation_errors'] = validation_errors();
+            $response['success'] = FALSE;
+
+        }else{
+
+            $res = $this->sy_model->updateSection();
+            if ($res) {
+                $response['success'] = TRUE;
+                $response['message'] = 'Data updated successfully';
+            }else{
+                $response['success'] = FALSE;
+                $response['message'] = 'Error updating data';
+            }
+
+        }
+
+        echo json_encode($response);
+        exit;
     }
 
     public function add_section()

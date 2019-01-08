@@ -142,6 +142,7 @@ class Registrar extends CI_Controller {
         $length = intval($this->input->get("length"));
         $grade = intval($this->input->get("grade"));
         $section = intval($this->input->get("section"));
+        $year = intval($this->input->get("year"));
 
 
         $query = $this->sy_model->getSubjects($grade, $section);
@@ -151,7 +152,7 @@ class Registrar extends CI_Controller {
 
         foreach($query->result() as $r) {
             
-            $action = '<a href="'.base_url().'registrar/records/sy/'.$r->id.'/grade/'.$grade.'/section/'.$section.'/subject/'.$r->id.'">View</a>';
+            $action = '<a href="'.base_url().'registrar/records/sy/'.$year.'/grade/'.$grade.'/section/'.$section.'/subject/'.$r->id.'">View</a>';
             $data[] = array(
 
                 ucfirst($r->subject_name) ,
@@ -191,6 +192,7 @@ class Registrar extends CI_Controller {
         $draw = intval($this->input->get("draw"));
         $start = intval($this->input->get("start"));
         $length = intval($this->input->get("length"));
+        $year = intval($this->input->get("year"));
 
         $query = $this->sy_model->getGrades();
 
@@ -199,7 +201,7 @@ class Registrar extends CI_Controller {
 
         foreach($query->result() as $r) {
             
-            $action = '<a href="'.base_url().'registrar/records/sy/'.$r->id.'/grade/'.$r->grade.'/section/'.$r->id.'">View</a>';
+            $action = '<a href="'.base_url().'registrar/records/sy/'.$year.'/grade/'.$r->grade.'/section/'.$r->id.'">View</a>';
             $data[] = array(
 
                 $r->grade . ' - ' . ucfirst($r->section_name) ,

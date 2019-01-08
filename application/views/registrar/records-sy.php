@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table" id="records_grade"  width="100%">
+                <table class="table" id="records_grade" data-year="<?=$data['school_year'] ?>" width="100%">
                     <thead>
                         <tr>
                             <th>Grade</th>

@@ -47,6 +47,22 @@ class Sy_Model extends CI_Model
         return $this->db->insert('section', $data);
     }
 
+    public function deleteSection($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('section');
+    }
+
+    public function updateSection()
+    {
+        $data = array(
+            'grade' => $this->input->post('grade'),
+            'section_name' => $this->input->post('section_name'),
+        );
+        $this->db->where('id', $this->input->post('section_id'));
+        return $this->db->update('section', $data);
+    }
+
     public function get_section_details($id)
     {
         $this->db->where('id', $id);
@@ -179,6 +195,7 @@ class Sy_Model extends CI_Model
         ->where('eg.school_year_id', $data['school_year'])
         ->where('eg.section_id', $data['section'])
         ->where('eg.subject_id', $data['subject']);
+        
         return $this->db->get('encoded_grade')->result();
     }
 
@@ -333,10 +350,10 @@ class Sy_Model extends CI_Model
     {
         $this->db->select('eg.*, ed.raw_data')
                 ->from('encoded_grade as eg')
-                ->join('enroll_data as ed', 'ed.id = eg.enroll_id');
-                // ->where('eg.school_year_id', $year)
-                // ->where('eg.section_id', $section)
-                // ->where('eg.subject_id', $subject);
+                ->join('enroll_data as ed', 'ed.id = eg.enroll_id')
+                ->where('eg.school_year_id', $year)
+                ->where('eg.section_id', $section)
+                ->where('eg.subject_id', $subject);
         return $this->db->get();
     }
 

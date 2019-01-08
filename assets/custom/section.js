@@ -41,32 +41,32 @@ $(document).ready(function() {
 
     })
 
-    // $(document).on('submit', '#update_assign_form', function(e) {
-    //     e.preventDefault();
-    //     var data = $(this).serialize();
+    $(document).on('submit', '#update_section_form', function(e) {
+        e.preventDefault();
+        var data = $(this).serialize();
 
-    //     $.ajax({
-    //         method : "POST",
-    //         url : base_url + 'admin/action/update_assign',
-    //         dataType : "JSON",
-    //         data : data,
-    //         success : function(response) {
-    //             if (response.success) {
-    //                 toastr.success(response.message);  
-    //                 $('#updateassignmodal').modal('toggle');
-    //                 $('#update_assign_form').trigger('reset');
-    //                 assignDataTable.ajax.reload();
-    //             }else{
-    //                 if (response.validation_errors) {
-    //                     toastr.error(response.validation_errors);
-    //                 }else{
-    //                     toastr.error(response.message);
-    //                 }
-    //             }
-    //         }
-    //     })
+        $.ajax({
+            method : "POST",
+            url : base_url + 'admin/action/update_section',
+            dataType : "JSON",
+            data : data,
+            success : function(response) {
+                if (response.success) {
+                    toastr.success(response.message);  
+                    $('#updatesectionnmodal').modal('toggle');
+                    $('#update_section_form').trigger('reset');
+                    sectionDataTable.ajax.reload();
+                }else{
+                    if (response.validation_errors) {
+                        toastr.error(response.validation_errors);
+                    }else{
+                        toastr.error(response.message);
+                    }
+                }
+            }
+        })
 
-    // })
+    })
 
     $(document).on('change', '.section_action', function(e) {
         e.preventDefault();
@@ -96,7 +96,7 @@ $(document).ready(function() {
             data : { id : id },
             success : function(response) {
                 if (response.success) {
-                    $('#update_section_form input[name="secion_id"]').val(response.section.id);
+                    $('#update_section_form input[name="section_id"]').val(response.section.id);
                     $('#update_section_form select[name="grade"]').val(response.section.grade);
                     $('#update_section_form input[name="section_name"]').val(response.section.section_name);
                     $('#updatesectionnmodal').modal({backdrop: 'static', keyboard: false})
@@ -112,7 +112,7 @@ $(document).ready(function() {
         })
     }
 
-    function deleteSubject( id )
+    function deleteSection( id )
     {
         var r = confirm("Are you sure you want to delete this data?");
 
@@ -120,14 +120,14 @@ $(document).ready(function() {
 
             $.ajax({
                 method : "POST",
-                url : base_url + 'admin/action/delete_assign',
+                url : base_url + 'admin/action/delete_section',
                 dataType : "JSON",
                 data : { id : id },
                 success : function(response) {
                     console.log(response);
                     if (response.success) {
                         toastr.success(response.message);
-                        assignDataTable.ajax.reload();
+                        sectionDataTable.ajax.reload();
                     }else{
                         if (response.validation_errors) {
                             toastr.error(response.validation_errors);

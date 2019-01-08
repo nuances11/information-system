@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table" id="records_subjects" data-section="<?= $data['section'] ;?>" data-grade="<?= $data['grade']; ?>" width="100%">
+                <table class="table" id="records_subjects" data-year="<?= $data['school_year'] ;?>" data-section="<?= $data['section'] ;?>" data-grade="<?= $data['grade']; ?>" width="100%">
                     <thead>
                         <tr>
                             <th>Subject</th>

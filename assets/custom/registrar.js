@@ -16,7 +16,10 @@ $(document).ready(function() {
     var recordsGradeDataTable =  $('#records_grade').DataTable({
         "ajax": {
             url : base_url + 'registrar/ajax/registrar_grades',
-            type : 'GET'
+            type : 'GET',
+            data : function ( d ) {
+                d.year = $('#records_grade').data('year');
+            },
         },
         responsive: true,
         language: {
@@ -32,6 +35,7 @@ $(document).ready(function() {
             data : function ( d ) {
                 d.section = $('#records_subjects').data('section');
                 d.grade = $('#records_subjects').data('grade');
+                d.year = $('#records_subjects').data('year');
             },
         },
         responsive: true,

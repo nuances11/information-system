@@ -1,4 +1,27 @@
 <!-- <div class="mt-3 container"> -->
+<pre>
+<?php #endregion
+    print_r($student);
+    $student_details = unserialize($student->raw_data);
+    $student_name = ucfirst($student_details['firstname']) . ' ' . ucfirst($student_details['middlename'][0]) .'. ' . ucfirst($student_details['lastname']);
+    // $average = ($grade->quarter_one + $grade->quarter_two + $grade->quarter_three + $grade->quarter_four) / 4.0;
+
+    //Get the current UNIX timestamp.
+    $now = time();
+
+    //Get the timestamp of the person's date of birth.
+    $dob = strtotime($student_details['dob']);
+
+    //Calculate the difference between the two timestamps.
+    $difference = $now - $dob;
+
+    //There are 31556926 seconds in a year.
+    $age = floor($difference / 31556926);
+
+    print_r($section);
+
+?>
+</pre>
 <div class="mt-3">
     <!-- <div class="card"> -->
     <div>
@@ -24,12 +47,14 @@
                                 <small>Pangalan</small>
                             </td>
                             <td colspan="3">
+                                <?= $student_name ?>
                             </td>
                             <td>
                                 <h6 class="mb-0 text-bold"> </h6>
                                 <small>LRN</small>
                             </td>
                             <td>
+                                <?= $student_details['lrn'] ?>
                             </td>
                         </tr>
                         <tr>
@@ -37,21 +62,23 @@
                                 <h6 class="mb-0 text-bold">Sex</h6>
                                 <small>Kasarian</small>
                             </td>
-                            <td></td>
+                            <td>
+                                <?= $student_details['sex'] ;?>
+                            </td>
                             <td>
                                 <h6 class="mb-0 text-bold">Age</h6>
                                 <small>Gulang</small>
                             </td>
-                            <td></td>
+                            <td><?= $age ;?></td>
                             <td>
                                 <h6 class="mb-0 text-bold">Year/Section</h6>
                                 <small>Taon/Pangkat</small>
                             </td>
-                            <td colspan="2"></td>
+                            <td colspan="2"><?= $section->grade . ' / ' . $section->section_name ;?></td>
                         </tr>
                         <tr>
                             <td colspan="4">
-                                <b>School Year/</b>Taong Pampaaralan 2017-2018
+                                <b>School Year/</b>Taong Pampaaralan <?= $year->year ;?>
                             </td>
                             <td colspan="3">
                                 <b>Curriculum/</b>Kurikulum: K-12 Curriculum
@@ -70,10 +97,10 @@
                             <th colspan="4">
                                 <h6 class="mb-0 text-bold">MARKAHAN</h6>
                             </th>
-                            <th rowspan="2">
+                            <!-- <th rowspan="2">
                                 <h6 class="mb-0 text-bold">Final Grade</h6>
                                 <small>Huling Marka</small>
-                            </th>
+                            </th> -->
                             <th rowspan="2">
                                 <h6 class="mb-0 text-bold">Remarks</h6>
                                 <small>Pasiya</small>

@@ -56,6 +56,25 @@ class Registrar extends CI_Controller {
         // }
     }
 
+    public function student_grades_print($sy, $grade, $section, $subject, $student)
+    {
+        $data = array(
+            'school_year' => $sy,
+            'section' => $section,
+            'subject' => $subject,
+            'student' => $student,
+        );
+        
+        $this->template->load_sub('year', $this->sy_model->get_sy_details($sy));
+        $this->template->load_sub('student', $this->sy_model->getStudentGrades($data));
+        $this->template->load_sub('grades', $this->sy_model->getAllStudentsGrade($data));
+        $this->template->load_sub('subject', $this->subjects_model->get_subject_details($subject));
+        $this->template->load_sub('section', $this->sy_model->get_section_details($section));
+        $this->template->set_title('Print');
+	    $this->template->set_template('backend/print');
+        $this->template->load('registrar/clstudcard');
+    }
+
     public function subject_grades_print($sy, $grade, $section, $subject)
     {
         $data = array(
@@ -91,8 +110,9 @@ class Registrar extends CI_Controller {
 
         foreach($query->result() as $r) {
             $student = unserialize($r->raw_data);
-            $student_name = ucfirst($student['firstname']) . ' ' . ucfirst($student['middlename'][0]) .'. ' . ucfirst($student['lastname']);
+            $student_name = '<a href="'. base_url() .'registrar/records/sy/'.$year.'/grade/'.$grade.'/section/'.$section.'/subject/'.$subject.'/student/'.$r->enroll_id.'">' . ucfirst($student['firstname']) . ' ' . ucfirst($student['middlename'][0]) .'. ' . ucfirst($student['lastname']) . '</a>';
             // $action = '<a href="'.base_url().'registrar/records/sy/'.$r->id.'/grade/'.$grade.'/section/'.$section.'/subject/'.$r->id.'/print">View</a>';
+
             $average = ($r->quarter_one + $r->quarter_two + $r->quarter_three + $r->quarter_four) / 4.0;
             $data[] = array(
 

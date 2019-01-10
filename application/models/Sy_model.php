@@ -357,6 +357,18 @@ class Sy_Model extends CI_Model
         return $this->db->get();
     }
 
+    public function getStudentGrades($data)
+    {
+        $this->db->select('eg.*, ed.raw_data')
+                ->from('encoded_grade as eg')
+                ->join('enroll_data as ed', 'ed.id = eg.enroll_id')
+                ->where('eg.school_year_id', $data['school_year'])
+                ->where('eg.section_id', $data['section'])
+                ->where('eg.subject_id', $data['subject'])
+                ->where('eg.enroll_id', $data['student']);
+        return $this->db->get()->row();
+    }
+
 }
 
 ?>

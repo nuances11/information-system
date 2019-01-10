@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['registrar/ajax/(.*)'] = 'registrar/ajax/$1';
 $route['registrar/action/(.*)'] = 'registrar/do_action/$1';
 
+$route['registrar/records/sy/(:num)/grade/(:num)/section/(:num)/subject/(:num)/student/(:num)'] = 'registrar/student_grades_print/$1/$2/$3/$4/$5';
 $route['registrar/records/sy/(:num)/grade/(:num)/section/(:num)/subject/(:num)/print'] = 'registrar/subject_grades_print/$1/$2/$3/$4';
 $route['registrar/records/sy/(:num)/grade/(:num)/section/(:num)/subject/(:num)'] = 'registrar/subject_grades/$1/$2/$3/$4';
 $route['registrar/records/sy/(:num)/grade/(:num)/section/(:num)'] = 'registrar/records_students/$1/$2/$3';

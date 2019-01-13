@@ -1,7 +1,7 @@
 <!-- <div class="mt-3 container"> -->
 <pre>
 <?php #endregion
-    print_r($student);
+    //print_r($subject_grade);
     $student_details = unserialize($student->raw_data);
     $student_name = ucfirst($student_details['firstname']) . ' ' . ucfirst($student_details['middlename'][0]) .'. ' . ucfirst($student_details['lastname']);
     // $average = ($grade->quarter_one + $grade->quarter_two + $grade->quarter_three + $grade->quarter_four) / 4.0;
@@ -18,7 +18,6 @@
     //There are 31556926 seconds in a year.
     $age = floor($difference / 31556926);
 
-    print_r($section);
 
 ?>
 </pre>
@@ -81,7 +80,7 @@
                                 <b>School Year/</b>Taong Pampaaralan <?= $year->year ;?>
                             </td>
                             <td colspan="3">
-                                <b>Curriculum/</b>Kurikulum: K-12 Curriculum
+                                <b>Curriculum/</b>Kurikulum: 
                             </td>
                         </tr>
                     </tbody>
@@ -114,25 +113,43 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                            <td class="text-left">Filipino</td>
-                            <td>85</td>
-                            <td>85</td>
-                            <td>85</td>
-                            <td>85</td>
-                            <td>85</td>
-                            <td>Passed</td>
-                        </tr>
+                        <?php 
+                            $avg = '' ;
+                            $remarks = '';
+                            $subjavg = '';
+                            $subjremarks = '';
+                        ?>
+                        <?php foreach($subject_grade as $subgrade):?>
+                            <td class="text-left"><?= $subgrade->subject_name ;?></td>
+                            <td class="text-center"><?= $subgrade->quarter_one ;?></td>
+                            <td class="text-center"><?= $subgrade->quarter_two ;?></td>
+                            <td class="text-center"><?= $subgrade->quarter_three ;?></td>
+                            <td class="text-center"><?= $subgrade->quarter_four ;?></td>
+                            <?php if(!empty($subgrade->quarter_one) && !empty($subgrade->quarter_two) && !empty($subgrade->quarter_three) && !empty($subgrade->quarter_four)): ?>
+                                <?php
+                                    $subjavg = ($subgrade->quarter_one + $subgrade->quarter_two + $subgrade->quarter_three + $subgrade->quarter_four) / 4;
+                                    $avg = ($subgrade->quarter_one + $subgrade->quarter_two + $subgrade->quarter_three + $subgrade->quarter_four) / 4;
+                                    $remarks = ($avg >= 75) ? 'Passed' : 'Failed' ;
+                                    $avg_first = $subgrade->avg_first;
+                                    $avg_two = $subgrade->avg_two;
+                                    $avg_three = $subgrade->avg_three;
+                                    $avg_four = $subgrade->avg_four;
+                                    $subjremarks = ($subjavg >= 75) ? 'Passed' : 'Failed' ;
+
+                                ?>
+                                <td class="text-center"><?= $subjremarks ;?></td>
+                            <?php endif;?>
+                            
+                        <?php endforeach;?>
                     </tbody>
                     <tfoot>
                         <tr class="text-center">
                             <td class="text-left">General Average:</td>
-                            <td>85</td>
-                            <td>85</td>
-                            <td>85</td>
-                            <td>85</td>
-                            <td>85</td>
-                            <td>Passed</td>
+                            <td><?= $avg_first ;?></td>
+                            <td><?= $avg_two ;?></td>
+                            <td><?= $avg_three ;?></td>
+                            <td><?= $avg_four ;?></td>
+                            <td><?= $remarks ;?></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -166,18 +183,18 @@
                                 <h6 class="mb-0 text-bold">May Pasok</h6>
                                 <small>Days of School</small>
                             </td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td>20</td>
-                            <td>220</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr class="text-center">
                             <td class="text-left">

@@ -369,6 +369,17 @@ class Sy_Model extends CI_Model
         return $this->db->get()->row();
     }
 
+    public function getSubjectGrade($data)
+    {
+        $this->db->select('eg.*, sub.subject_name, AVG (eg.quarter_one) as avg_first, AVG (eg.quarter_two) as avg_two, AVG (eg.quarter_three) as avg_three, AVG (eg.quarter_four) as avg_four ')
+                ->from('encoded_grade as eg')
+                ->join('subjects as sub', 'sub.id = eg.subject_id')
+                ->where('eg.school_year_id', $data['school_year'])
+                ->where('eg.section_id', $data['section'])
+                ->where('eg.enroll_id', $data['student']);
+        return $this->db->get()->result();
+    }
+
 }
 
 ?>

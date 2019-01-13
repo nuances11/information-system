@@ -67,6 +67,7 @@ class Registrar extends CI_Controller {
         
         $this->template->load_sub('year', $this->sy_model->get_sy_details($sy));
         $this->template->load_sub('student', $this->sy_model->getStudentGrades($data));
+        $this->template->load_sub('subject_grade', $this->sy_model->getSubjectGrade($data));
         $this->template->load_sub('grades', $this->sy_model->getAllStudentsGrade($data));
         $this->template->load_sub('subject', $this->subjects_model->get_subject_details($subject));
         $this->template->load_sub('section', $this->sy_model->get_section_details($section));

@@ -34,7 +34,7 @@
 	<!-- AdditionalCSS -->
 	<?php if(isset($additional_css)) : ?>
 	<?php foreach($additional_css as $css): ?>
-	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/<?php echo base_url() . $css ;?>">
+	<link rel="stylesheet" href="<?php echo base_url() . $css ;?>">
 	<?php endforeach; ?>
 	<?php endif; ?>
 
@@ -52,9 +52,6 @@
 	<script src="<?php echo base_url(); ?>assets/vendor/popper.js/umd/popper.min.js"> </script>
 	<script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
-	<script src="<?php echo base_url(); ?>assets/vendor/chart.js/Chart.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/vendor/jquery-validation/jquery.validate.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/charts-home.js"></script>
 	<!-- Main File-->
 	<script src="<?php echo base_url(); ?>assets/js/front.js"></script>
 	<script src="<?php echo base_url(); ?>assets/"></script>
@@ -62,7 +59,7 @@
 	<!-- Additional Scripts -->
 	<?php if(isset($add_js)) : ?>
 	<?php foreach($add_js as $js): ?>
-	<script src="<?php echo base_url(); ?>assets/<?php echo base_url() . $js; ?>"></script>
+	<!-- <script src="<?php echo base_url() . $js; ?>"></script> -->
 	<?php endforeach; ?>
 	<?php endif; ?>
 

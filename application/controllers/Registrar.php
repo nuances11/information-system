@@ -49,11 +49,51 @@ class Registrar extends CI_Controller {
 
     public function do_action($request)
     {
-        // switch ($request) {
-        //     case 'student_sy_datatable':
-        //         $this->get_student_sy_dt();
-        //         break;
-        // }
+        switch ($request) {
+            case 'check_form':
+                $this->check_form();
+                break;
+        }
+    }
+
+    public function printForm()
+    {
+        $lrn = $this->input->get('lrn');
+        if ($lrn) {
+            $this->template->load_sub('grade_seven', $this->sy_model->getGradeSeven($lrn, 7));
+            $this->template->load_sub('grade_seven_detail', $this->sy_model->getGradeSevenDetails($lrn, 7));
+            $this->template->load_sub('grade_eight', $this->sy_model->getGradeEight($lrn, 8));
+            $this->template->load_sub('grade_eight_detail', $this->sy_model->getGradeEightDetails($lrn, 8));
+            $this->template->load_sub('grade_nine', $this->sy_model->getGradeNine($lrn, 9));
+            $this->template->load_sub('grade_nine_detail', $this->sy_model->getGradeNineDetails($lrn, 9));
+            $this->template->load_sub('grade_ten', $this->sy_model->getGradeTen($lrn, 10));
+            $this->template->load_sub('grade_ten_detail', $this->sy_model->getGradeTenDetails($lrn, 10));
+            // $this->template->load_sub('grade_eight', $this->sy_model->getGradeEight($lrn,8));
+            // $this->template->load_sub('grade_nine', $this->sy_model->getGradeNine($lrn,9));
+            // $this->template->load_sub('grade_ten', $this->sy_model->getGradeTen($lrn,10));
+            $this->template->set_title('Print');
+            $this->template->set_template('backend/print');
+            $this->template->load('print/sf10-front');
+        }
+    }
+
+    public function check_form()
+    {
+        $response = array();
+        $lrn = $this->input->post('input_lrn');
+        if ($lrn) {
+            $res = $this->sy_model->getRecords($lrn);
+            if ($res) {
+                $response['success'] = TRUE;
+                $response['lrn'] = urlencode($res);
+            }
+        }else{
+            $response['success'] = FALSE;
+            $response['message'] = 'LRN Fiels is empty';
+        }
+
+        echo json_encode($response);
+        exit;
     }
 
     public function student_grades_print($sy, $grade, $section, $subject, $student)

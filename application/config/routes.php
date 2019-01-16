@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['registrar/ajax/(.*)'] = 'registrar/ajax/$1';
 $route['registrar/action/(.*)'] = 'registrar/do_action/$1';
 
+$route['registrar/sf10/print'] = 'registrar/printForm';
 $route['registrar/records/sy/(:num)/grade/(:num)/section/(:num)/subject/(:num)/student/(:num)'] = 'registrar/student_grades_print/$1/$2/$3/$4/$5';
 $route['registrar/records/sy/(:num)/grade/(:num)/section/(:num)/subject/(:num)/print'] = 'registrar/subject_grades_print/$1/$2/$3/$4';
 $route['registrar/records/sy/(:num)/grade/(:num)/section/(:num)/subject/(:num)'] = 'registrar/subject_grades/$1/$2/$3/$4';
@@ -54,7 +55,8 @@ $route['admin']['GET'] = 'admin';
 
 $route['print/section-id/classrecord'] = 'printrecord/clrecordprint';
 $route['print/section-id/student-id/card'] = 'printrecord/studcard';
-$route['print/section-id/student-id/sf10-front'] = 'printrecord/sf10Front';
+// $route['print/section-id/student-id/sf10-front'] = 'printrecord/sf10Front';
+$route['print/sf10'] = 'registrar/printForm';
 $route['print/section-id/student-id/sf10-back'] = 'printrecord/sf10Back';
 
 $route['logout'] = 'login/logout';

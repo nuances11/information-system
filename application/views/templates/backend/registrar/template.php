@@ -87,13 +87,13 @@
 				<!-- Sidebar Navidation Menus--><span class="heading">Main</span>
 				<ul class="list-unstyled">
 					<li><a href="<?php echo base_url(); ?>registrar/class"> <i class="icon-grid"></i>Class Record</a></li>
-					<!-- <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse" class="collapsed"> <i class="icon-interface-windows"></i>Forms</a>
+					<li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse" class="collapsed"> <i class="icon-interface-windows"></i>Forms</a>
 						<ul id="exampledropdownDropdown" class="list-unstyled collapse" style="">
 							<li><a href="<?php echo base_url(); ?>registrar/sf10">SF10-ES Form</a></li>
-							<li><a href="<?php echo base_url(); ?>print/section-id/student-id/card'">Progress Report Card</a></li>
-							<li><a href="#">Subjects</a></li>
+							<!-- <li><a href="<?php echo base_url(); ?>print/section-id/student-id/card'">Progress Report Card</a></li>
+							<li><a href="#">Subjects</a></li> -->
 						</ul>
-					</li> -->
+					</li>
 				</ul>
 			</nav>
 
@@ -111,9 +111,6 @@
 	<script src="<?php echo base_url(); ?>assets/vendor/popper.js/umd/popper.min.js"> </script>
 	<script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
-	<script src="<?php echo base_url(); ?>assets/vendor/chart.js/Chart.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/vendor/jquery-validation/jquery.validate.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/charts-home.js"></script>
 	<!-- Main File-->
 	<script src="<?php echo base_url(); ?>assets/js/front.js"></script>
 	<script src="<?php echo base_url(); ?>assets/"></script>

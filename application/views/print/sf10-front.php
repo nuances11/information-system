@@ -1,4 +1,8 @@
-
+<pre>
+    <?php
+        //print_r($grade_seven);
+    ?>
+</pre>
 <div class="container mt-3 school-form">
     <div class="row text-center">
         <div class="col-sm-2">
@@ -19,7 +23,7 @@
     </h5>
     <!-- <br> -->
     <div class="form-group sf-box">
-        <small class="col-3">Credentials Presented for Grade 1</small>
+        <small class="col-3">Credentials Presented for ______</small>
         <small class="col-3">Kinder Progress Report</small>
         <small class="col-3">ECCD Checklist</small>
         <small class="col-3">Kindergarten Certificate of Completion</small>
@@ -49,9 +53,9 @@
                 <small class="col-4">Division: <b>OLONGAPO</b></small>
                 <small class="col-4 text-right">Region: <b>III</b></small>
 
-                <small class="col-6">Classified as Grade <b>ONE</b> Section:</small>
-                <small class="col-6 text-right">School Year: <b>2018-2019</b></small>
-                <small class="col-6">Name of Adviser/Teacher:</small>
+                <small class="col-6">Classified as Grade <?= $grade_seven_detail->grade_level ;?> Section: <?= $grade_seven_detail->section_name ;?></small>
+                <small class="col-6 text-right">School Year: <?= $grade_seven_detail->year ;?></small>
+                <small class="col-6">Name of Adviser/Teacher: <?= $grade_seven_detail->faculty_name ;?></small>
                 <small class="col-6 text-right">Signature:_____________</small>
             </div>
             <table class="table table-bordered my-0">
@@ -81,7 +85,44 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
+                        <?php $grading_sheet = 15;?>
+                        <?php $total_Subject = $grading_sheet - count($grade_seven);?>
+                        <?php //$i = 1 ;?>
+                        <?php for ($i=0; $i < $grading_sheet ; $i++) { ?>
+                        <?php // echo $i ; echo count($grade_seven)// echo $grade_seven[$i]->id;?>
+                            <?php // foreach($grade_seven as $gs): ?>
+                                <?php if ($i < count($grade_seven)) :?>
+                                    <?php
+                                    //echo $grade_seven[];
+                                        $subjavg = ($grade_seven[$i]->quarter_one + $grade_seven[$i]->quarter_two + $grade_seven[$i]->quarter_three + $grade_seven[$i]->quarter_four) / 4;
+                                        $remarks = ($subjavg >= 75) ? 'Passed' : 'Failed' ;
+                                    ?>
+                                    <tr class="text-center">
+                                        <td class="text-left"><?= $grade_seven[$i]->subject_name ;?></td>
+                                        <td><?= $grade_seven[$i]->quarter_one ;?></td>
+                                        <td><?= $grade_seven[$i]->quarter_two ;?></td>
+                                        <td><?= $grade_seven[$i]->quarter_three ;?></td>
+                                        <td><?= $grade_seven[$i]->quarter_four ;?></td>
+                                        <td></td>
+                                        <td><?php echo $remarks;?></td>
+                                    </tr>
+                                <?php else: ?>
+                                    
+
+                                    <tr class="text-center">
+                                        <td class="text-left"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                <?php endif;?>
+                            <?php // endforeach; ?>
+                        <?php } ?>
+                        
+                        <!-- <tr class="text-center">
                             <td class="text-left">Mother Tounge</td>
                             <td></td>
                             <td></td>
@@ -215,7 +256,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                     <tfoot>
                         <tr class="text-center">

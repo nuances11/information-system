@@ -62,4 +62,27 @@ $(document).ready(function() {
           sSearch: '',
         }
     });
+
+    $(document).on('submit', '#check_lrn_form', function(e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        $.ajax({
+            method : "POST",
+            url : base_url + 'registrar/action/check_form',
+            dataType : "JSON",
+            data : data,
+            success : function(response) {
+                console.log(response);
+                if (response.success) {
+                    location.href = base_url + 'print/sf10?lrn=' + response.lrn;
+                }else{
+                    if (response.validation_errors) {
+                        toastr.error(response.validation_errors);
+                    }else{
+                        toastr.error(response.message);
+                    }
+                }
+            }
+        })
+    })
 })

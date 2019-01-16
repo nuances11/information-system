@@ -380,6 +380,332 @@ class Sy_Model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function getRecords($lrn)
+    {
+        $formdata = array();
+        $enroll_data = $this->db->get('enroll_data')->result();
+        $records_found = 0;
+        foreach ($enroll_data as $ed) {
+            if($ed->raw_data)
+            {
+                $student = unserialize($ed->raw_data);
+                if($student['lrn'] !== $lrn)
+                {
+                    continue;
+                }else{
+                    $records_found++;
+                    // $this->db->select('eg.*, sub.subject_name, AVG (eg.quarter_one) as avg_first, AVG (eg.quarter_two) as avg_two, AVG (eg.quarter_three) as avg_three, AVG (eg.quarter_four) as avg_four ')
+                    //         ->from('encoded_grade as eg')
+                    //         ->join('subjects as sub', 'sub.id = eg.subject_id')
+                    //         ->where('eg.school_year_id', $ed->school_year_id)
+                    //         ->where('eg.section_id', $ed->section_id)
+                    //         ->where('eg.enroll_id', $ed->id);
+                    // $sg['grade'] =  $this->db->get()->result();
+                    // array_push($formdata, $sg['grade']);
+                }
+            }
+        }
+
+        if ($records_found > 0) {
+            return $lrn;
+        }
+        
+        return [];
+    }
+
+    // Grade Seven
+
+    public function getGradeSeven($lrn, $grade = false)
+    {
+    //     echo '<pre>';
+        $student_id = '';
+        if($grade != false && $lrn != '')
+        {
+            // Get Student Data Per Year Level
+            $this->db->where('grade_level', $grade);
+            $students = $this->db->get('enroll_data')->result();
+            foreach ($students as $stud) {
+                $rawData = unserialize($stud->raw_data);
+                if ($rawData['lrn'] == $lrn) {
+                    $student_id = $stud->id;
+                    $student_sy = $stud->school_year_id;
+                    $section_id = $stud->section_id;
+                    // return $this->db->get()->result();
+                    
+                }
+
+            }
+            // echo $student_id . ' : Student<br>';
+            // echo $student_sy . ' : School Year<br>';
+            // echo $section_id . ' : Section ID<br>';
+            $this->db->select('eg.*, sub.subject_name')
+                    ->from('encoded_grade as eg')
+                    ->join('subjects as sub', 'sub.id = eg.subject_id')
+                    ->where('eg.school_year_id', $student_sy)
+                    ->where('eg.section_id', $section_id)
+                    ->where('eg.enroll_id', $student_id);
+            return $this->db->get()->result();
+        }
+    
+    }
+
+    public function getGradeSevenDetails($lrn, $grade = false)
+    {
+        //echo '<pre>';
+        $this->db->where('grade_level', $grade);
+        $students = $this->db->get('enroll_data')->result();
+        foreach ($students as $stud) {
+            $rawData = unserialize($stud->raw_data);
+            if ($rawData['lrn'] == $lrn) {
+                $student_id = $stud->id;
+                $student_sy = $stud->school_year_id;
+                $section_id = $stud->section_id;
+                
+            }
+
+        }
+        // echo $student_id . ' : Student<br>';
+        // echo $student_sy . ' : School Year<br>';
+        // echo $section_id . ' : Section ID<br>';
+        $this->db->select('ed.*, sec.section_name, sec.grade, sy.year, CONCAT(u.first_name, '.', u.last_name) AS faculty_name', FALSE)
+                ->from('enroll_data as ed')
+                ->join('section as sec', 'sec.id = ed.section_id')
+                ->join('school_year as sy', 'sy.id = ed.school_year_id')
+                ->join('faculty_designation as fd', 'fd.section_id = ed.section_id')
+                ->join('users as u', 'u.id = fd.user_id')
+                ->where('ed.school_year_id', $student_sy)
+                ->where('ed.section_id', $section_id)
+                ->where('ed.id', $student_id);
+        return $this->db->get()->row();
+    }
+
+    // Grade Eight
+
+    public function getGradeEight($lrn, $grade = false)
+    {
+        
+        $student_id = '';
+        if($grade != false && $lrn != '')
+        {
+            // Get Student Data Per Year Level
+            $this->db->where('grade_level', $grade);
+            $students = $this->db->get('enroll_data')->result();
+            if($students)
+            {
+                foreach ($students as $stud) {
+                    $rawData = unserialize($stud->raw_data);
+                    if ($rawData['lrn'] == $lrn) {
+                        $student_id = $stud->id;
+                        $student_sy = $stud->school_year_id;
+                        $section_id = $stud->section_id;
+                        // return $this->db->get()->result();
+                        
+                    }
+    
+                }
+                // echo $student_id . ' : Student<br>';
+                // echo $student_sy . ' : School Year<br>';
+                // echo $section_id . ' : Section ID<br>';
+                $this->db->select('eg.*, sub.subject_name')
+                        ->from('encoded_grade as eg')
+                        ->join('subjects as sub', 'sub.id = eg.subject_id')
+                        ->where('eg.school_year_id', $student_sy)
+                        ->where('eg.section_id', $section_id)
+                        ->where('eg.enroll_id', $student_id);
+                return $this->db->get()->result();
+            }
+            
+        }
+
+        return [];
+    
+    }
+
+    public function getGradeEightDetails($lrn, $grade = false)
+    {
+        //echo '<pre>';
+        $this->db->where('grade_level', $grade);
+        $students = $this->db->get('enroll_data')->result();
+        if ($students) {
+            foreach ($students as $stud) {
+                $rawData = unserialize($stud->raw_data);
+                if ($rawData['lrn'] == $lrn) {
+                    $student_id = $stud->id;
+                    $student_sy = $stud->school_year_id;
+                    $section_id = $stud->section_id;
+                    
+                }
+    
+            }
+            // echo $student_id . ' : Student<br>';
+            // echo $student_sy . ' : School Year<br>';
+            // echo $section_id . ' : Section ID<br>';
+            $this->db->select('ed.*, sec.section_name, sec.grade, sy.year, CONCAT(u.first_name, '.', u.last_name) AS faculty_name', FALSE)
+                    ->from('enroll_data as ed')
+                    ->join('section as sec', 'sec.id = ed.section_id')
+                    ->join('school_year as sy', 'sy.id = ed.school_year_id')
+                    ->join('faculty_designation as fd', 'fd.section_id = ed.section_id')
+                    ->join('users as u', 'u.id = fd.user_id')
+                    ->where('ed.school_year_id', $student_sy)
+                    ->where('ed.section_id', $section_id)
+                    ->where('ed.id', $student_id);
+            return $this->db->get()->row();
+        }
+
+        return [];
+        
+    }
+
+    // Grade Nince
+
+    public function getGradeNine($lrn, $grade = false)
+    {
+    //     echo '<pre>';
+        $student_id = '';
+        if($grade != false && $lrn != '')
+        {
+            // Get Student Data Per Year Level
+            $this->db->where('grade_level', $grade);
+            $students = $this->db->get('enroll_data')->result();
+            if ($students) {
+                foreach ($students as $stud) {
+                    $rawData = unserialize($stud->raw_data);
+                    if ($rawData['lrn'] == $lrn) {
+                        $student_id = $stud->id;
+                        $student_sy = $stud->school_year_id;
+                        $section_id = $stud->section_id;
+                        // return $this->db->get()->result();
+                        
+                    }
+    
+                }
+                // echo $student_id . ' : Student<br>';
+                // echo $student_sy . ' : School Year<br>';
+                // echo $section_id . ' : Section ID<br>';
+                $this->db->select('eg.*, sub.subject_name')
+                        ->from('encoded_grade as eg')
+                        ->join('subjects as sub', 'sub.id = eg.subject_id')
+                        ->where('eg.school_year_id', $student_sy)
+                        ->where('eg.section_id', $section_id)
+                        ->where('eg.enroll_id', $student_id);
+                return $this->db->get()->result();
+            }
+            
+        }
+
+        return [];
+    
+    }
+
+    public function getGradeNineDetails($lrn, $grade = false)
+    {
+        //echo '<pre>';
+        $this->db->where('grade_level', $grade);
+        $students = $this->db->get('enroll_data')->result();
+        if ($students) {
+            foreach ($students as $stud) {
+                $rawData = unserialize($stud->raw_data);
+                if ($rawData['lrn'] == $lrn) {
+                    $student_id = $stud->id;
+                    $student_sy = $stud->school_year_id;
+                    $section_id = $stud->section_id;
+                    
+                }
+    
+            }
+            // echo $student_id . ' : Student<br>';
+            // echo $student_sy . ' : School Year<br>';
+            // echo $section_id . ' : Section ID<br>';
+            $this->db->select('ed.*, sec.section_name, sec.grade, sy.year, CONCAT(u.first_name, '.', u.last_name) AS faculty_name', FALSE)
+                    ->from('enroll_data as ed')
+                    ->join('section as sec', 'sec.id = ed.section_id')
+                    ->join('school_year as sy', 'sy.id = ed.school_year_id')
+                    ->join('faculty_designation as fd', 'fd.section_id = ed.section_id')
+                    ->join('users as u', 'u.id = fd.user_id')
+                    ->where('ed.school_year_id', $student_sy)
+                    ->where('ed.section_id', $section_id)
+                    ->where('ed.id', $student_id);
+            return $this->db->get()->row();
+        }
+
+        return [];
+        
+    }
+
+    // Grade Ten
+
+    public function getGradeTen($lrn, $grade = false)
+    {
+    //     echo '<pre>';
+        $student_id = '';
+        if($grade != false && $lrn != '')
+        {
+            // Get Student Data Per Year Level
+            $this->db->where('grade_level', $grade);
+            $students = $this->db->get('enroll_data')->result();
+            if ($students) {
+                foreach ($students as $stud) {
+                    $rawData = unserialize($stud->raw_data);
+                    if ($rawData['lrn'] == $lrn) {
+                        $student_id = $stud->id;
+                        $student_sy = $stud->school_year_id;
+                        $section_id = $stud->section_id;
+                        // return $this->db->get()->result();
+                        
+                    }
+    
+                }
+                // echo $student_id . ' : Student<br>';
+                // echo $student_sy . ' : School Year<br>';
+                // echo $section_id . ' : Section ID<br>';
+                $this->db->select('eg.*, sub.subject_name')
+                        ->from('encoded_grade as eg')
+                        ->join('subjects as sub', 'sub.id = eg.subject_id')
+                        ->where('eg.school_year_id', $student_sy)
+                        ->where('eg.section_id', $section_id)
+                        ->where('eg.enroll_id', $student_id);
+                return $this->db->get()->result();
+            }
+            
+        }
+    
+    }
+
+    public function getGradeTenDetails($lrn, $grade = false)
+    {
+        //echo '<pre>';
+        $this->db->where('grade_level', $grade);
+        $students = $this->db->get('enroll_data')->result();
+        if ($students) {
+            foreach ($students as $stud) {
+                $rawData = unserialize($stud->raw_data);
+                if ($rawData['lrn'] == $lrn) {
+                    $student_id = $stud->id;
+                    $student_sy = $stud->school_year_id;
+                    $section_id = $stud->section_id;
+                    
+                }
+    
+            }
+            // echo $student_id . ' : Student<br>';
+            // echo $student_sy . ' : School Year<br>';
+            // echo $section_id . ' : Section ID<br>';
+            $this->db->select('ed.*, sec.section_name, sec.grade, sy.year, CONCAT(u.first_name, '.', u.last_name) AS faculty_name', FALSE)
+                    ->from('enroll_data as ed')
+                    ->join('section as sec', 'sec.id = ed.section_id')
+                    ->join('school_year as sy', 'sy.id = ed.school_year_id')
+                    ->join('faculty_designation as fd', 'fd.section_id = ed.section_id')
+                    ->join('users as u', 'u.id = fd.user_id')
+                    ->where('ed.school_year_id', $student_sy)
+                    ->where('ed.section_id', $section_id)
+                    ->where('ed.id', $student_id);
+            return $this->db->get()->row();
+        }
+        
+    }
+
+    
+
 }
 
 ?>
